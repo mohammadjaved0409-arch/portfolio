@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mohammad Javed — Creative Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --accent: #ff3c00;
+    --accent2: #ffcc00;
+    --text: #f0ece4;
+    --muted: #888;
+    --border: #2a2a2a;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(10,10,10,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 92vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,60,0,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -100px; left: 30%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,204,0,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-left { max-width: 560px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,60,0,0.1);
+    border: 1px solid rgba(255,60,0,0.3);
+    color: var(--accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 1.8rem;
+  }
+  .hero-tag::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  h1 .line2 { color: var(--accent); display: block; }
+  h1 .line3 { color: var(--muted); display: block; font-size: 0.55em; font-weight: 400; letter-spacing: 0.02em; margin-top: 0.4em; font-family: 'DM Sans', sans-serif; }
+  .hero-desc {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 14px 28px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: border-color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--text); transform: translateY(-2px); }
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 340px;
+  }
+  .stat-cell {
+    background: var(--surface);
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: var(--accent);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+  }
+  .specialty-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: flex-end;
+    max-width: 340px;
+  }
+  .tag {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    padding: 6px 12px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+  .tag.hot { border-color: rgba(255,204,0,0.4); color: var(--accent2); background: rgba(255,204,0,0.05); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+    margin: 0 2.5rem;
+  }
+
+  /* SECTION */
+  section { padding: 5rem 2.5rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .section-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    letter-spacing: -0.02em;
+  }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* PROJECTS GRID */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .project-card {
+    background: var(--surface);
+    padding: 2rem;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: block;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .project-card:hover { background: var(--card); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .project-type {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .project-desc {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .project-link::after { content: '→'; transition: transform 0.2s; }
+  .project-card:hover .project-link::after { transform: translateX(4px); }
+  .project-card.featured { grid-column: span 2; }
+  .project-card.featured .project-name { font-size: 2rem; }
+
+  /* LINKS SECTION */
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .link-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    text-decoration: none;
+    display: flex; flex-direction: column; gap: 10px;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .link-card:hover {
+    border-color: var(--accent);
+    background: var(--card);
+    transform: translateY(-3px);
+  }
+  .link-icon {
+    width: 40px; height: 40px;
+    background: rgba(255,60,0,0.1);
+    border: 1px solid rgba(255,60,0,0.2);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .link-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .link-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 2.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .footer-back {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .footer-back:hover { color: var(--text); border-color: var(--text); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * { animation: fadeUp 0.6s ease both; }
+  .hero-tag { animation-delay: 0.05s; }
+  h1 { animation-delay: 0.12s; }
+  .hero-desc { animation-delay: 0.2s; }
+  .hero-ctas { animation-delay: 0.28s; }
+  .hero-right { animation: fadeUp 0.6s 0.35s ease both; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 3rem 1.25rem; min-height: auto; gap: 3rem; }
+    .hero-right { align-items: flex-start; }
+    .stat-grid, .specialty-tags { max-width: 100%; }
+    section { padding: 3.5rem 1.25rem; }
+    .project-card.featured { grid-column: span 1; }
+    footer { padding: 2rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">MJ<span>.</span></div>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#links">Links</a>
+    <a href="https://drive.google.com/drive/folders/1Vj2naWDqmUVwwFlnZk7aQn2e77wob1U2" target="_blank">Portfolio PDF</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Available for work</div>
+    <h1>
+      MOHAMMAD<span class="line2">JAVED</span><span class="line3">Creative Designer &amp; Social Media Marketer</span>
+    </h1>
+    <p class="hero-desc">Crafting bold brand identities and high-impact social media experiences. Currently working on 5 active projects across fintech, crypto, and Web3 spaces.</p>
+    <div class="hero-ctas">
+      <a href="https://drive.google.com/drive/folders/1Tx11vMD_NsXLTFmDiOs0KG_9_FKOFO8q" target="_blank" class="btn-primary">View Work</a>
+      <a href="https://drive.google.com/drive/folders/1Vj2naWDqmUVwwFlnZk7aQn2e77wob1U2" target="_blank" class="btn-secondary">Corporate PDF</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-grid">
+      <div class="stat-cell"><span class="stat-num">5</span><span class="stat-label">Active Projects</span></div>
+      <div class="stat-cell"><span class="stat-num">3+</span><span class="stat-label">Industries</span></div>
+      <div class="stat-cell"><span class="stat-num">∞</span><span class="stat-label">Creative Vision</span></div>
+      <div class="stat-cell"><span class="stat-num">100%</span><span class="stat-label">Dedicated</span></div>
+    </div>
+    <div class="specialty-tags">
+      <span class="tag hot">Brand Identity</span>
+      <span class="tag">Social Media</span>
+      <span class="tag hot">Web3 / Crypto</span>
+      <span class="tag">Fintech</span>
+      <span class="tag">Content Strategy</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">01 —</span>
+    <h2 class="section-title">Selected Projects</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="projects-grid">
+    <a class="project-card featured" href="https://www.instagram.com/orbitx_dao/" target="_blank">
+      <span class="project-num">Project #01</span>
+      <div class="project-name">ORBITX</div>
+      <span class="project-type">DAO · Web3 · Brand Design</span>
+      <p class="project-desc">A decentralised autonomous organisation brand — crafting a visual identity and social media presence for the next generation of Web3 communities.</p>
+      <span class="project-link">View on Instagram</span>
+    </a>
+
+    <a class="project-card" href="https://www.instagram.com/bitroniaofficial/" target="_blank">
+      <span class="project-num">Project #02</span>
+      <div class="project-name">BITRONIA</div>
+      <span class="project-type">Crypto · Brand Identity</span>
+      <p class="project-desc">Brand design and social strategy for a crypto platform — bold visuals built for the digital asset space.</p>
+      <span class="project-link">View on Instagram</span>
+    </a>
+
+    <a class="project-card" href="https://www.instagram.com/finexa.club" target="_blank">
+      <span class="project-num">Project #03</span>
+      <div class="project-name">FINEXA</div>
+      <span class="project-type">Fintech · Social Media</span>
+      <p class="project-desc">Creative direction and marketing for a fintech club — blending finance aesthetics with modern design language.</p>
+      <span class="project-link">View on Instagram</span>
+    </a>
+
+    <a class="project-card" href="https://www.instagram.com/amxfinance" target="_blank">
+      <span class="project-num">Project #04</span>
+      <div class="project-name">AMX</div>
+      <span class="project-type">Finance · Brand Design</span>
+      <p class="project-desc">Visual identity for AMX Finance — clean, authoritative design built for trust and credibility in the financial sector.</p>
+      <span class="project-link">View on Instagram</span>
+    </a>
+
+    <a class="project-card" href="https://drive.google.com/drive/folders/1QnXE37akaKuqDTFyqbwUf7sczbzbI5UY" target="_blank">
+      <span class="project-num">Project #05</span>
+      <div class="project-name">ZENKO</div>
+      <span class="project-type">Brand · Creative Direction</span>
+      <p class="project-desc">Full brand identity and creative assets for Zenko — detailed work available in the project portfolio folder.</p>
+      <span class="project-link">View Files</span>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LINKS -->
+<section id="links">
+  <div class="section-header">
+    <span class="section-num">02 —</span>
+    <h2 class="section-title">Connect &amp; Explore</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="links-grid">
+    <a class="link-card" href="https://drive.google.com/drive/folders/1Tx11vMD_NsXLTFmDiOs0KG_9_FKOFO8q" target="_blank">
+      <div class="link-icon">📁</div>
+      <div class="link-name">Work Portfolio</div>
+      <div class="link-desc">Browse the full collection of design work and creative projects.</div>
+    </a>
+    <a class="link-card" href="https://drive.google.com/drive/folders/1Vj2naWDqmUVwwFlnZk7aQn2e77wob1U2" target="_blank">
+      <div class="link-icon">📄</div>
+      <div class="link-name">Corporate PDF</div>
+      <div class="link-desc">Download the official corporate profile and credentials deck.</div>
+    </a>
+    <a class="link-card" href="https://www.youtube.com" target="_blank">
+      <div class="link-icon">▶</div>
+      <div class="link-name">YouTube</div>
+      <div class="link-desc">Video content, tutorials and creative behind-the-scenes.</div>
+    </a>
+    <a class="link-card" href="https://linktr.ee/mohammadjaved" target="_blank">
+      <div class="link-icon">🌿</div>
+      <div class="link-name">Linktree</div>
+      <div class="link-desc">All links in one place — the original hub.</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">MJ<span>.</span></div>
+  <div class="footer-copy">© 2026 Mohammad Javed — Creative Designer</div>
+  <a class="footer-back" href="https://linktr.ee/mohammadjaved" target="_blank">Linktree ↗</a>
+</footer>
+
+</body>
+</html>
