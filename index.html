@@ -1881,11 +1881,6 @@
   const jahQuickBtns = document.getElementById('jah-quick-btns');
 
   let jahOpen = false;
-  const JAH_SYSTEM = `You are Jah — a sharp, warm, and witty AI assistant embedded on Mohammad Javed's personal portfolio website. You speak in first person about Mohammad as if you know him well. Keep answers concise (2-4 sentences max), friendly, and on-brand with his dark, bold, design-forward aesthetic. Use occasional emojis but don't overdo it.
-
-Mohammad Javed is a Brand Designer and Social Media Marketer based in India. He specialises in bold brand identities, social media strategy, and creative direction — especially for Web3, crypto, fintech, and DeFi brands. He has designed 10+ brands including OrbitX (DAO), Bitronia (crypto), Finexa (fintech), AMX Finance, and Zenko. He is open to freelance and brand collaboration work. Contact: mohammadjaved0409@gmail.com | LinkedIn: linkedin.com/in/mohammad-javed-09984a31b | Linktree: linktr.ee/mohammadjaved. His portfolio is on Google Drive. He is dedicated, creative, and passionate about Web3 design culture.
-
-If asked something completely unrelated to Mohammad or design, you can briefly answer but gently bring the conversation back to his work.`;
 
   function toggleJah() {
     jahOpen = !jahOpen;
@@ -1929,7 +1924,125 @@ If asked something completely unrelated to Mohammad or design, you can briefly a
     if (t) t.remove();
   }
 
-  const conversationHistory = [];
+  // ── SMART LOCAL RESPONSE ENGINE ──────────────────────────────
+  // No API needed — keyword matching with varied, natural replies.
+
+  const JAH_RESPONSES = [
+    {
+      keys: ['skill','do','speciali','what you','what he','offer','service','expertise'],
+      replies: [
+        "Mohammad specialises in bold brand identities, social media strategy, and creative direction — especially for Web3, crypto, fintech, and DeFi brands. 🔥 He takes a brand from zero and makes it impossible to ignore.",
+        "Brand design, social media strategy, and creative direction are his sweet spots 🎯. He's particularly sharp in the Web3 / DeFi / fintech space — building identities that feel premium and built to last.",
+        "He does it all — logo systems, brand guidelines, social content, and full creative direction. His niche is Web3 and fintech, where design needs to project trust AND edge at the same time. 💡"
+      ]
+    },
+    {
+      keys: ['project','work','portfolio','brand','client','case','built','made','design'],
+      replies: [
+        "Some of his best work includes OrbitX (a DAO brand), Bitronia (crypto exchange), Finexa (fintech), AMX Finance, and Zenko 🚀. Each one is bold, intentional, and built for its audience. Hit the portfolio link to see everything!",
+        "He's designed 10+ brands — highlights are OrbitX, Bitronia, Finexa, AMX Finance, and Zenko ✨. The portfolio on Google Drive has the full case studies.",
+        "OrbitX is probably the most ambitious — a full DAO brand identity. Then there's Bitronia (crypto), Finexa (fintech), and more. Check the Work Portfolio section to browse them all 📁."
+      ]
+    },
+    {
+      keys: ['hire','collab','work with','freelance','available','book','rate','price','cost','quote','commission'],
+      replies: [
+        "He's open to freelance and brand collaborations right now! 🙌 Best way to reach him is mohammadjaved0409@gmail.com — drop a quick brief and he'll get back to you fast.",
+        "Absolutely open to new projects! Hit him on LinkedIn (linkedin.com/in/mohammad-javed-09984a31b) or email mohammadjaved0409@gmail.com with what you're building 🤝.",
+        "Mohammad is available for freelance work — brand identities, social strategy, creative direction. Email mohammadjaved0409@gmail.com or connect on LinkedIn to kick things off 🔥."
+      ]
+    },
+    {
+      keys: ['industri','niche','sector','web3','crypto','defi','fintech','blockchain'],
+      replies: [
+        "His main niches are Web3, crypto, DeFi, and fintech — industries where trust and visual identity are everything 💎. He's worked with DAOs, exchanges, and financial platforms.",
+        "Web3 and fintech are where he thrives 🌐. These spaces need design that's both credible and culturally sharp — that's exactly what Mohammad delivers.",
+        "He's deep in the Web3 / DeFi / fintech world, but his brand skills translate to any industry that values bold, intentional design ⚡."
+      ]
+    },
+    {
+      keys: ['contact','reach','email','linkedin','social','instagram','touch','connect','dm','message'],
+      replies: [
+        "You can reach Mohammad at mohammadjaved0409@gmail.com 📧, on LinkedIn (linkedin.com/in/mohammad-javed-09984a31b), or through his Linktree (linktr.ee/mohammadjaved).",
+        "Best bet is email — mohammadjaved0409@gmail.com 🎯. He's also active on LinkedIn if you'd rather connect there first.",
+        "Hit him up! 📬 Email: mohammadjaved0409@gmail.com | LinkedIn: linkedin.com/in/mohammad-javed-09984a31b | All links: linktr.ee/mohammadjaved"
+      ]
+    },
+    {
+      keys: ['who','about','yourself','tell me','introduce','javed','mohammad','mj','background','story'],
+      replies: [
+        "Mohammad Javed is a Brand Designer and Social Media Marketer based in India 🇮🇳. He builds bold identities for Web3, crypto, and fintech brands — the kind that stop the scroll and build real trust.",
+        "MJ is a brand designer who lives at the intersection of bold aesthetics and strategic thinking 🎨. Based in India, he's designed 10+ brands and is deeply passionate about Web3 design culture.",
+        "He's a creative force — brand identity, social strategy, creative direction — with a sharp focus on Web3 and fintech. Based in India, open to global collabs 🌍."
+      ]
+    },
+    {
+      keys: ['youtube','video','content','tutorial','watch','channel'],
+      replies: [
+        "He's got a YouTube channel too! 🎥 Check it out at youtube.com/@wolfbruhhh — creative content and behind-the-scenes.",
+        "Yeah, he posts on YouTube (@wolfbruhhh) — tutorials, creative process, that kind of vibe 🎬. Worth a follow!"
+      ]
+    },
+    {
+      keys: ['portfolio','drive','file','pdf','download','view','see','show'],
+      replies: [
+        "His full portfolio lives on Google Drive 📁 — hit the 'Work Portfolio' button on this page to browse everything. There's also a Corporate PDF if you want a credentials deck.",
+        "Scroll up and hit the Work Portfolio link — it's all on Google Drive and organised by project 🗂️. The Corporate PDF is there too if you need a formal overview."
+      ]
+    },
+    {
+      keys: ['good','great','nice','awesome','cool','love','like','amazing','excellent','wow'],
+      replies: [
+        "Glad you think so! 😄 Mohammad puts serious craft into every project. If you vibe with the work, reach out — mohammadjaved0409@gmail.com.",
+        "Right?! 🔥 He's got a real eye for it. Feel free to reach out if you want to work together!",
+        "That's the goal! Bold, intentional design that actually lands ✨. Hit him up if you have a project in mind."
+      ]
+    },
+    {
+      keys: ['hello','hi','hey','sup','yo','hola','greet','start','begin'],
+      replies: [
+        "Hey! 👋 I'm Jah — Mohammad's AI assistant. Ask me about his work, skills, availability, or anything about collaborating!",
+        "Yo! 🤙 What do you want to know about Mohammad and his work?",
+        "Hey there! 👋 I'm here to tell you all about Mohammad Javed — designer, creative director, Web3 enthusiast. What's on your mind?"
+      ]
+    },
+    {
+      keys: ['thank','thanks','appreciate','helpful','cheers'],
+      replies: [
+        "Anytime! 🙌 If you want to take the next step, just email mohammadjaved0409@gmail.com.",
+        "Happy to help! ✨ Mohammad would love to hear from you directly too — mohammadjaved0409@gmail.com.",
+        "No problem! Feel free to ask anything else, or reach out to Mohammad directly 🎯."
+      ]
+    }
+  ];
+
+  const JAH_FALLBACKS = [
+    "Hmm, I'm not sure about that specifically 🤔 — but I can tell you Mohammad is a brand designer open to collabs. Email him at mohammadjaved0409@gmail.com!",
+    "Good question! I'd point you to Mohammad directly for that — mohammadjaved0409@gmail.com 📧. He's super responsive.",
+    "That's a bit outside my lane 😅 — I'm best at talking about Mohammad's work and how to connect with him. Anything else I can help with?",
+    "Not sure I have the perfect answer for that one! But if it's about working with Mohammad, just drop him a line: mohammadjaved0409@gmail.com 🔥"
+  ];
+
+  const replyCounters = {};
+
+  function getJahReply(input) {
+    const text = input.toLowerCase();
+    for (const group of JAH_RESPONSES) {
+      if (group.keys.some(k => text.includes(k))) {
+        const key = group.keys[0];
+        replyCounters[key] = ((replyCounters[key] || 0) + 1) % group.replies.length;
+        return group.replies[replyCounters[key]];
+      }
+    }
+    // fallback — rotate through them
+    replyCounters['_fallback'] = ((replyCounters['_fallback'] || 0) + 1) % JAH_FALLBACKS.length;
+    return JAH_FALLBACKS[replyCounters['_fallback']];
+  }
+
+  function randomDelay() {
+    // Simulate "thinking" — 0.8s to 1.8s
+    return 800 + Math.random() * 1000;
+  }
 
   async function sendToJah(userText) {
     if (!userText.trim()) return;
@@ -1937,32 +2050,16 @@ If asked something completely unrelated to Mohammad or design, you can briefly a
     addMsg(escapeHtml(userText), 'user');
     jahInput.value = '';
     jahSend.disabled = true;
-    conversationHistory.push({ role: 'user', content: userText });
     addTyping();
 
-    try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          system: JAH_SYSTEM,
-          messages: conversationHistory
-        })
-      });
-      const data = await response.json();
+    const reply = getJahReply(userText);
+
+    setTimeout(() => {
       removeTyping();
-      const reply = data.content?.[0]?.text || "Hmm, something went wrong on my end. Try again? 🙏";
-      conversationHistory.push({ role: 'assistant', content: reply });
-      addMsg(reply.replace(/\n/g, '<br>'), 'bot');
-    } catch (e) {
-      removeTyping();
-      addMsg("Oops, I lost connection. Check your network and try again 🔌", 'bot');
-    } finally {
+      addMsg(reply, 'bot');
       jahSend.disabled = false;
       jahInput.focus();
-    }
+    }, randomDelay());
   }
 
   function escapeHtml(str) {
